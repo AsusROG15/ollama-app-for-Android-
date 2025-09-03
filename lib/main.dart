@@ -9,8 +9,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'screen_settings.dart';
-import 'screen_welcome.dart';
+import 'package:ollama_app_for_Android_/features/settings/settings_screen.dart';
+import 'package:ollama_app_for_Android_/features/welcome/welcome_screen.dart';
 import 'worker_setter.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
@@ -367,7 +367,7 @@ class _MainAppState extends State<MainApp> {
                                   color: Colors.grey)),
                         ),
                         const SizedBox(width: 16),
-                      ])),
+                      ])), 
                 )));
       }),
     ])
@@ -493,7 +493,7 @@ class _MainAppState extends State<MainApp> {
                           Padding(
                               padding:
                                   const EdgeInsets.only(left: 16, right: 16),
-                              child: Icon((chatUuid == jsonDecode(item)["uuid"])
+                              child: Icon((chatUuid == jsonDecode(item)["uuid"]) 
                                   ? Icons.location_on_rounded
                                   : Icons.restore_rounded)),
                           Expanded(
@@ -589,8 +589,13 @@ class _MainAppState extends State<MainApp> {
                         child: Padding(
                             padding: EdgeInsets.all(16),
                             child: Text(
-                                "*Build Error:*\n\nuseHost: $useHost\nallowSettings: $allowSettings\n\nYou created this build? One of them must be set to true or the app is not functional!\n\nYou received this build by someone else? Please contact them and report the issue.",
-                                style: TextStyle(color: Colors.red)))));
+                                "*Build Error:*
+
+useHost: $useHost
+allowSettings: $allowSettings
+
+You created this build? One of them must be set to true or the app is not functional!\n\nYou received this build by someone else? Please contact them and report the issue.",
+                                style: TextStyle(color: Colors.red))))));
               });
         }
 
@@ -735,8 +740,7 @@ class _MainAppState extends State<MainApp> {
                                           content: Column(
                                               mainAxisSize: MainAxisSize.min,
                                               children: [
-                                                Text(AppLocalizations.of(
-                                                        context)!
+                                                Text(AppLocalizations.of(context)!
                                                     .deleteDialogDescription),
                                               ]),
                                           actions: [
@@ -746,8 +750,7 @@ class _MainAppState extends State<MainApp> {
                                                       .selectionClick();
                                                   Navigator.of(context).pop();
                                                 },
-                                                child: Text(AppLocalizations.of(
-                                                        context)!
+                                                child: Text(AppLocalizations.of(context)!
                                                     .deleteDialogCancel)),
                                             TextButton(
                                                 onPressed: () {
@@ -762,17 +765,14 @@ class _MainAppState extends State<MainApp> {
                                                                   [])
                                                               .length;
                                                       i++) {
-                                                    if (jsonDecode((prefs!
-                                                                .getStringList(
+                                                    if (jsonDecode((prefs!.
+                                                                getStringList(
                                                                     "chats") ??
                                                             [])[i])["uuid"] ==
                                                         chatUuid) {
-                                                      List<String> tmp = prefs!
-                                                          .getStringList(
-                                                              "chats")!;
+                                                      List<String> tmp = prefs!.getStringList("chats")!;
                                                       tmp.removeAt(i);
-                                                      prefs!.setStringList(
-                                                          "chats", tmp);
+                                                      prefs!.setStringList("chats", tmp);
                                                       break;
                                                     }
                                                   }
@@ -780,8 +780,7 @@ class _MainAppState extends State<MainApp> {
                                                   chatUuid = null;
                                                   setState(() {});
                                                 },
-                                                child: Text(AppLocalizations.of(
-                                                        context)!
+                                                child: Text(AppLocalizations.of(context)!
                                                     .deleteDialogDelete))
                                           ]);
                                     });
@@ -822,10 +821,11 @@ class _MainAppState extends State<MainApp> {
                               duration: const Duration(milliseconds: 500),
                               child: Divider(
                                   height: 2,
-                                  color: (Theme.of(context).brightness ==
-                                          Brightness.light)
-                                      ? Colors.grey[400]
-                                      : Colors.grey[900]))
+                                  color:
+                                      (Theme.of(context).brightness ==
+                                              Brightness.light)
+                                          ? Colors.grey[400]
+                                          : Colors.grey[900]))
                           : const SizedBox.shrink()),
               leading: ((Platform.isWindows ||
                           Platform.isLinux ||
@@ -899,7 +899,7 @@ class _MainAppState extends State<MainApp> {
                                                 // ignore: use_build_context_synchronously
                                                 AppLocalizations.of(context)!
                                                     .settingsHostInvalid(
-                                                        "url")),
+                                                        "url"))
                                             showCloseIcon: true));
                                   }
                                 },
@@ -1130,8 +1130,7 @@ class _MainAppState extends State<MainApp> {
                         ];
                         List<String> images = [];
                         for (var i = 0; i < messages.length; i++) {
-                          if (jsonDecode(jsonEncode(messages[i]))["text"] !=
-                              null) {
+                          if (jsonDecode(jsonEncode(messages[i]))["text"] != null) {
                             history.add(llama.Message(
                                 role: (messages[i].author.id == user.id)
                                     ? llama.MessageRole.user
@@ -1293,12 +1292,14 @@ class _MainAppState extends State<MainApp> {
                                 request: llama.GenerateCompletionRequest(
                                   model: model!,
                                   prompt:
-                                      "You must not use markdown or any other formatting language! Create a short title for the subject of the conversation described in the following json object. It is not allowed to be too general; no 'Assistance', 'Help' or similar!\n\n```json\n${jsonEncode(history)}\n```",
+                                      "You must not use markdown or any other formatting language! Create a short title for the subject of the conversation described in the following json object. It is not allowed to be too general; no 'Assistance', 'Help' or similar!\n\n```json
+${jsonEncode(history)}
+```",
                                 ),
                               );
-                              var title = generated.response!
-                                  .replaceAll("*", "")
-                                  .replaceAll("_", "")
+                              var title = generated.response! \
+                                  .replaceAll("*", "") \
+                                  .replaceAll("_", "") \
                                   .trim();
                               var tmp = (prefs!.getStringList("chats") ?? []);
                               for (var i = 0; i < tmp.length; i++) {
@@ -1329,7 +1330,7 @@ class _MainAppState extends State<MainApp> {
                         if (p1.author == assistant) return;
                         for (var i = 0; i < messages.length; i++) {
                           if (messages[i].id == p1.id) {
-                            List messageList =
+                            List messageList = 
                                 (jsonDecode(jsonEncode(messages)) as List)
                                     .reversed
                                     .toList();
@@ -1395,7 +1396,8 @@ class _MainAppState extends State<MainApp> {
                       },
                       onAttachmentPressed: (!multimodal)
                           ? null
-                          : () {
+                          :
+                          () {
                               HapticFeedback.selectionClick();
                               if (!chatAllowed || model == null) return;
                               if (Platform.isWindows ||
@@ -1447,7 +1449,7 @@ class _MainAppState extends State<MainApp> {
 
                                                         Navigator.of(context)
                                                             .pop();
-                                                        final result =
+                                                        final result = 
                                                             await ImagePicker()
                                                                 .pickImage(
                                                           source: ImageSource
@@ -1457,19 +1459,19 @@ class _MainAppState extends State<MainApp> {
                                                           return;
                                                         }
 
-                                                        final bytes =
+                                                        final bytes = 
                                                             await result
                                                                 .readAsBytes();
-                                                        final image =
+                                                        final image = 
                                                             await decodeImageFromList(
                                                                 bytes);
 
-                                                        final message =
+                                                        final message = 
                                                             types.ImageMessage(
                                                           author: user,
                                                           createdAt: DateTime
                                                                   .now()
-                                                              .millisecondsSinceEpoch,
+                                                                  .millisecondsSinceEpoch,
                                                           height: image.height
                                                               .toDouble(),
                                                           id: const Uuid().v4(),
@@ -1502,7 +1504,7 @@ class _MainAppState extends State<MainApp> {
 
                                                         Navigator.of(context)
                                                             .pop();
-                                                        final result =
+                                                        final result = 
                                                             await ImagePicker()
                                                                 .pickImage(
                                                           source: ImageSource
@@ -1512,19 +1514,19 @@ class _MainAppState extends State<MainApp> {
                                                           return;
                                                         }
 
-                                                        final bytes =
+                                                        final bytes = 
                                                             await result
                                                                 .readAsBytes();
-                                                        final image =
+                                                        final image = 
                                                             await decodeImageFromList(
                                                                 bytes);
 
-                                                        final message =
+                                                        final message = 
                                                             types.ImageMessage(
                                                           author: user,
                                                           createdAt: DateTime
                                                                   .now()
-                                                              .millisecondsSinceEpoch,
+                                                                  .millisecondsSinceEpoch,
                                                           height: image.height
                                                               .toDouble(),
                                                           id: const Uuid().v4(),
@@ -1631,7 +1633,7 @@ class _MainAppState extends State<MainApp> {
                                           ? 1900
                                           : 1300
                                       : 700
-                                  : 440))),
+                                  : 440))), 
             ],
           ),
           drawerEdgeDragWidth:
