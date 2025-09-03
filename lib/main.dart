@@ -11,7 +11,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import 'package:ollama_app_for_Android_/features/settings/settings_screen.dart';
 import 'package:ollama_app_for_Android_/features/welcome/welcome_screen.dart';
-import 'worker_setter.dart';
+import 'package:ollama_app_for_Android_/workers/setter_worker.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 // ignore: depend_on_referenced_packages
@@ -367,8 +367,7 @@ class _MainAppState extends State<MainApp> {
                                   color: Colors.grey)),
                         ),
                         const SizedBox(width: 16),
-                      ])), 
-                )));
+                      ]))));
       }),
     ])
       ..addAll((prefs?.getStringList("chats") ?? []).map((item) {
@@ -714,7 +713,7 @@ You created this build? One of them must be set to true or the app is not functi
                                       colors: WindowButtonColors(
                                           iconNormal: Theme.of(context)
                                               .colorScheme
-                                              .primary))),
+                                              .primary)))
                             ],
                           )))
                     ]
@@ -806,7 +805,7 @@ You created this build? One of them must be set to true or the app is not functi
                             }
                             setState(() {});
                           },
-                          icon: const Icon(Icons.restart_alt_rounded))
+                          icon: const Icon(Icons.restart_alt_rounded)))
                     ],
               bottom: PreferredSize(
                   preferredSize: const Size.fromHeight(1),
